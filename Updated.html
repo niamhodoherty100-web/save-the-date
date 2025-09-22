@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Christmas Save the Date — Open Me</title>
+
+  <meta property="og:title" content="Christmas Save the Date: Our Wedding" />
+  <meta property="og:description" content="It's time to Save the Date — Open Me" />
+  <meta property="og:image" content="https://example.com/og-image.jpg" />
+  <meta property="og:type" content="website" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#4b0f11;
+      --gold:#e6cfa3;
+      --envelope:#f7efe0;
+      --accent:#7a2b2f;
+    }
+    html,body{height:100%; margin:0; font-family: 'Playfair Display', serif; background: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.03), transparent 10%), linear-gradient(180deg,var(--bg),#2f0810 60%); color:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+    .glitter {position:absolute; inset:0; pointer-events:none; z-index:0;}
+    .glitter span {position:absolute; width:2px; height:2px; background: rgba(255,255,255,0.6); border-radius:50%; animation: glitter 3s infinite;}
+    @keyframes glitter {0%{opacity:0.2}50%{opacity:1}100%{opacity:0.2}}
+
+    .stage{position:relative; display:flex; flex-direction:column; align-items:center; z-index:1; width:100%; max-width:860px; gap:24px;}
+
+    .headline{display:flex; flex-direction:column; align-items:center; gap:8px;}
+    .title{font-size:28px; letter-spacing:0.6px}
+    .subtitle{font-family:'Great Vibes', cursive; font-size:30px; color:var(--gold); text-shadow:0 2px 6px rgba(0,0,0,0.4)}
+
+    .envelope-wrap{position:relative; width:600px; height:360px; display:flex; align-items:center; justify-content:center}
+
+    .envelope{width:480px; height:280px; background: linear-gradient(180deg,var(--envelope),#efe6d3); border-radius:10px; box-shadow:0 12px 30px rgba(0,0,0,0.6), inset 0 -4px 10px rgba(0,0,0,0.04); position:relative; overflow:visible; transform-origin:center; transition:transform 700ms cubic-bezier(.22,.9,.28,1);}
+
+    .flap{position:absolute; left:0; right:0; top:-140px; height:220px; background:linear-gradient(180deg,var(--envelope),#f0e6cf); border-radius:10px; border-bottom-left-radius:0; border-bottom-right-radius:0; transform-origin:center bottom; box-shadow:0 10px 25px rgba(0,0,0,0.4); transform:perspective(600px) rotateX(0deg); transition:transform 900ms cubic-bezier(.22,.9,.28,1);}
+
+    .seal{position:absolute; left:50%; transform:translateX(-50%); top:28%; width:84px; height:84px; border-radius:50%; background: radial-gradient(circle at 30% 20%, #fff9e6, #e8d7ad); border:2px solid rgba(0,0,0,0.05); box-shadow:0 6px 16px rgba(0,0,0,0.35); display:flex; align-items:center; justify-content:center; font-family:'Great Vibes',cursive; color:#7a2b2f; font-size:22px}
+
+    .message{position:absolute; left:50%; transform:translateX(-50%); top:20%; display:flex; flex-direction:column; align-items:center; pointer-events:none; text-align:center;}
+    .message .msg-line1{font-family:'Great Vibes',cursive; font-size:28px; color:var(--accent);}
+    .message .msg-line2{font-size:14px; color:#6b3a3a; margin-top:4px;}
+
+    .opened .flap{transform:perspective(600px) rotateX(180deg) translateY(-20px) scaleX(1.2)}
+    .opened .envelope{transform:translateY(60px) scaleX(1.05)}
+
+    .video-panel{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:84%; max-width:760px; height:428px; display:none; padding:12px; border-radius:12px; background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.45)); box-shadow:0 20px 60px rgba(0,0,0,0.6); z-index:2;}
+    .video-panel.active{display:block}
+    .video-wrap{position:relative; width:100%; height:100%; border-radius:10px; overflow:hidden}
+
+    .play-pulse{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:120px; height:120px; border-radius:50%; display:flex; align-items:center; justify-content:center; pointer-events:none;}
+    .play-pulse .circle{width:100%; height:100%; border-radius:50%; background: radial-gradient(circle at 30% 30%, rgba(230,207,163,0.12), rgba(230,207,163,0.06)); box-shadow:0 6px 20px rgba(0,0,0,0.6); animation:pulse 2.2s infinite;}
+    @keyframes pulse{0%{transform:scale(0.9);opacity:0.9}60%{transform:scale(1.15);opacity:0.28}100%{transform:scale(1.35);opacity:0}}
+    .play-icon{position:absolute; left:50%; top:50%; transform:translate(-45%,-50%); font-size:34px; color:var(--gold); text-shadow:0 3px 8px rgba(0,0,0,0.5)}
+
+    .foot{margin-top:8px; text-align:center; font-size:13px; color:rgba(255,255,255,0.62);}
+
+    @media (max-width:640px){
+      .envelope-wrap{width:100%; height:240px}
+      .envelope{width:320px; height:200px}
+      .flap{top:-100px; height:160px}
+      .video-panel{height:220px}
+      .title{font-size:18px}
+      .subtitle{font-size:22px}
+      .message .msg-line1{font-size:20px}
+    }
+  </style>
+</head>
+<body>
+  <div class="glitter" aria-hidden>
+    <script>
+      for(let i=0;i<50;i++){
+        let span=document.createElement('span');
+        span.style.top=Math.random()*100+'%';
+        span.style.left=Math.random()*100+'%';
+        span.style.animationDelay=(Math.random()*3)+'s';
+        span.style.width=(Math.random()*2+1)+'px';
+        span.style.height=(Math.random()*2+1)+'px';
+        document.body.appendChild(span);
+      }
+    </script>
+  </div>
+
+  <div class="stage">
+    <div class="headline">
+      <div class="title">You're invited</div>
+      <div class="subtitle">It's time to Save the Date — Open Me</div>
+    </div>
+
+    <div class="envelope-wrap">
+      <button id="envelopeBtn" class="envelope" aria-label="Open Save the Date envelope" title="Open Save the Date" style="border:none;background:transparent;padding:0;cursor:pointer">
+        <div class="flap"></div>
+        <div class="seal">❤</div>
+        <div class="message">
+          <div class="msg-line1">It's time to Save the Date</div>
+          <div class="msg-line2">— Open Me —</div>
+        </div>
+      </button>
+
+      <div id="videoPanel" class="video-panel" role="dialog" aria-label="Save the Date video">
+        <div class="video-wrap" id="videoWrap">
+          <div id="iframeHolder" style="width:100%;height:100%;"></div>
+          <div class="play-pulse" id="playPulse" aria-hidden>
+            <div class="circle"></div>
+            <div class="play-icon">▶</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">A cosy, romantic Christmas wedding — details to follow.</div>
+  </div>
+
+  <script>
+    (function(){
+      const YOUTUBE_ID = "kxPuP-mEyEA";
+      const START_AT = 0;
+
+      const envelopeBtn = document.getElementById('envelopeBtn');
+      const videoPanel = document.getElementById('videoPanel');
+      const iframeHolder = document.getElementById('iframeHolder');
+      const playPulse = document.getElementById('playPulse');
+      let opened = false;
+
+      function createYouTubeIframe(){
+        if(!YOUTUBE_ID){
+          iframeHolder.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#fff;padding:20px;text-align:center">YouTube ID missing.</div>';
+          return;
+        }
+        const src = `https://www.youtube.com/embed/${encodeURIComponent(YOUTUBE_ID)}?autoplay=1&rel=0&playsinline=1&start=${START_AT}&enablejsapi=1`;
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('src', src);
+        iframe.setAttribute('frameborder','0');
+        iframe.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;');
+        iframe.setAttribute('allowfullscreen','');
+        iframe.style.width='100%'; iframe.style.height='100%';
+        iframeHolder.appendChild(iframe);
+      }
+
+      function openEnvelope(){
+        if(opened) return;
+        opened = true;
+        document.querySelector('.envelope-wrap').classList.add('opened');
+        setTimeout(()=>{
+          videoPanel.classList.add('active');
+          createYouTubeIframe();
+          setTimeout(()=>{ playPulse.style.display='none' }, 2800);
+        }, 520);
+      }
+
+      envelopeBtn.addEventListener('click', function(e){ e.preventDefault(); openEnvelope(); });
+      playPulse.addEventListener('click', function(){
+        const iframe = iframeHolder.querySelector('iframe');
+        if(iframe && iframe.contentWindow){ iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}','*'); } else { createYouTubeIframe(); }
+      });
+      envelopeBtn.addEventListener('keydown', function(ev){ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); openEnvelope(); } });
+    })();
+  </script>
+</body>
+</html>
