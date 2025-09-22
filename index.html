@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Save the Date — It's time to Save the Date</title>
 
-  <!-- Open Graph for WhatsApp / link preview -->
   <meta property="og:title" content="Save the Date: Our Christmas Wedding" />
   <meta property="og:description" content="It's time to Save the Date — Open Me" />
   <meta property="og:image" content="https://example.com/og-image.jpg" />
   <meta property="og:type" content="website" />
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
   <style>
@@ -21,74 +19,72 @@
       --envelope:#f7efe0;
       --accent:#7a2b2f;
     }
-    html,body{height:100%;}
-    body{
-      margin:0;min-height:100%;
-      font-family: "Playfair Display", serif;
-      background: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.03), transparent 10%), linear-gradient(180deg,var(--bg),#2f0810 60%);
-      color: #fff; display:flex;align-items:center;justify-content:center;padding:32px;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      overflow:hidden;
-    }
-    .snow{position:fixed;inset:0;pointer-events:none;opacity:0.65}
-    .snow:after{content:'';position:absolute;left:-10%;top:-10%;width:130%;height:130%;background-image:radial-gradient(circle at 10% 20%, rgba(255,255,255,0.06) 0 1px, transparent 1px);background-size:6px 6px;animation: drift 30s linear infinite}
-    @keyframes drift{from{transform:translateY(-10vh)}to{transform:translateY(110vh)}}
+    html,body{height:100%; margin:0; font-family: 'Playfair Display', serif; background: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.03), transparent 10%), linear-gradient(180deg,var(--bg),#2f0810 60%); color:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden;}
 
-    .stage{width:100%;max-width:860px;display:grid;gap:24px;grid-template-rows:auto 1fr;align-items:start}
+    /* Glitter behind envelope */
+    .glitter {position:absolute; inset:0; pointer-events:none; z-index:0;}
+    .glitter span {position:absolute; width:2px; height:2px; background: rgba(255,255,255,0.6); border-radius:50%; animation: glitter 3s infinite;}
+    @keyframes glitter {0%{opacity:0.2}50%{opacity:1}100%{opacity:0.2}}
 
-    .headline{display:flex;align-items:center;gap:16px}
-    .title{font-size:28px;letter-spacing:0.6px}
-    .subtitle{font-family:'Great Vibes', cursive;font-size:30px;color:var(--gold);text-shadow:0 2px 6px rgba(0,0,0,0.4)}
+    .stage{position:relative; display:flex; flex-direction:column; align-items:center; z-index:1; width:100%; max-width:860px; gap:24px;}
 
-    .envelope-wrap{position:relative;width:560px;height:360px;margin:0 auto;display:flex;align-items:center;justify-content:center}
+    .headline{display:flex; flex-direction:column; align-items:center; gap:8px;}
+    .title{font-size:28px; letter-spacing:0.6px}
+    .subtitle{font-family:'Great Vibes', cursive; font-size:30px; color:var(--gold); text-shadow:0 2px 6px rgba(0,0,0,0.4)}
 
-    .envelope{
-      width:460px;height:280px;background:linear-gradient(180deg,var(--envelope),#efe6d3);
-      border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,0.6), inset 0 -4px 10px rgba(0,0,0,0.04);
-      position:relative;overflow:visible;transform-origin:center;transition:transform 700ms cubic-bezier(.22,.9,.28,1);
-    }
+    .envelope-wrap{position:relative; width:600px; height:360px; display:flex; align-items:center; justify-content:center}
 
-    .flap{
-      position:absolute;left:0;right:0;top:-120px;height:200px;background:linear-gradient(180deg,var(--envelope),#f0e6cf);
-      border-radius:10px;border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:center bottom;box-shadow:0 10px 25px rgba(0,0,0,0.4);
-      transform:perspective(600px) rotateX(0deg);transition:transform 900ms cubic-bezier(.22,.9,.28,1);
-    }
+    .envelope{width:480px; height:280px; background: linear-gradient(180deg,var(--envelope),#efe6d3); border-radius:10px; box-shadow:0 12px 30px rgba(0,0,0,0.6), inset 0 -4px 10px rgba(0,0,0,0.04); position:relative; overflow:visible; transform-origin:center; transition:transform 700ms cubic-bezier(.22,.9,.28,1);}
 
-    .seal{
-      position:absolute;left:50%;transform:translateX(-50%);top:40%;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 30% 20%, #fff9e6, #e8d7ad);
-      border:2px solid rgba(0,0,0,0.05);box-shadow:0 6px 16px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;font-family:'Great Vibes',cursive;color:#7a2b2f;font-size:22px
-    }
+    .flap{position:absolute; left:0; right:0; top:-140px; height:220px; background:linear-gradient(180deg,var(--envelope),#f0e6cf); border-radius:10px; border-bottom-left-radius:0; border-bottom-right-radius:0; transform-origin:center bottom; box-shadow:0 10px 25px rgba(0,0,0,0.4); transform:perspective(600px) rotateX(0deg); transition:transform 900ms cubic-bezier(.22,.9,.28,1);}
 
-    .envelope .message{position:absolute;inset:36px;display:flex;align-items:center;justify-content:center;pointer-events:none}
-    .envelope .message .msg-inner{background:transparent;padding:6px 14px;border-radius:8px}
-    .msg-line1{font-family:'Great Vibes',cursive;font-size:26px;color:var(--accent);}
-    .msg-line2{font-size:14px;color:#6b3a3a;}
+    .seal{position:absolute; left:50%; transform:translateX(-50%); top:28%; width:84px; height:84px; border-radius:50%; background: radial-gradient(circle at 30% 20%, #fff9e6, #e8d7ad); border:2px solid rgba(0,0,0,0.05); box-shadow:0 6px 16px rgba(0,0,0,0.35); display:flex; align-items:center; justify-content:center; font-family:'Great Vibes',cursive; color:#7a2b2f; font-size:22px}
 
-    .opened .flap{transform:perspective(600px) rotateX(180deg) translateY(-10px)}
-    .opened .envelope{transform:translateY(70px)}
+    .message{position:absolute; left:50%; transform:translateX(-50%); top:20%; display:flex; flex-direction:column; align-items:center; pointer-events:none; text-align:center;}
+    .message .msg-line1{font-family:'Great Vibes',cursive; font-size:28px; color:var(--accent);}
+    .message .msg-line2{font-size:14px; color:#6b3a3a; margin-top:4px;}
 
-    .video-panel{position:absolute;left:50%;transform:translateX(-50%);top:calc(50% - 20px);width:84%;max-width:760px;height:428px;display:none;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.45));box-shadow:0 20px 60px rgba(0,0,0,0.6)}
+    .opened .flap{transform:perspective(600px) rotateX(180deg) translateY(-20px) scaleX(1.2)}
+    .opened .envelope{transform:translateY(60px) scaleX(1.05)}
+
+    .video-panel{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:84%; max-width:760px; height:428px; display:none; padding:12px; border-radius:12px; background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.45)); box-shadow:0 20px 60px rgba(0,0,0,0.6); z-index:2;}
     .video-panel.active{display:block}
-    .video-wrap{position:relative;width:100%;height:100%;border-radius:10px;overflow:hidden}
+    .video-wrap{position:relative; width:100%; height:100%; border-radius:10px; overflow:hidden}
 
-    .play-pulse{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none}
-    .play-pulse .circle{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(230,207,163,0.12), rgba(230,207,163,0.06));box-shadow:0 6px 20px rgba(0,0,0,0.6);animation:pulse 2.2s infinite}
+    .play-pulse{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:120px; height:120px; border-radius:50%; display:flex; align-items:center; justify-content:center; pointer-events:none;}
+    .play-pulse .circle{width:100%; height:100%; border-radius:50%; background: radial-gradient(circle at 30% 30%, rgba(230,207,163,0.12), rgba(230,207,163,0.06)); box-shadow:0 6px 20px rgba(0,0,0,0.6); animation:pulse 2.2s infinite;}
     @keyframes pulse{0%{transform:scale(0.9);opacity:0.9}60%{transform:scale(1.15);opacity:0.28}100%{transform:scale(1.35);opacity:0}}
-    .play-icon{position:absolute;left:50%;top:50%;transform:translate(-45%,-50%);font-size:34px;color:var(--gold);text-shadow:0 3px 8px rgba(0,0,0,0.5)}
+    .play-icon{position:absolute; left:50%; top:50%; transform:translate(-45%,-50%); font-size:34px; color:var(--gold); text-shadow:0 3px 8px rgba(0,0,0,0.5)}
 
-    .foot{margin-top:8px;text-align:center;font-size:13px;color:rgba(255,255,255,0.62)}
+    .foot{margin-top:8px; text-align:center; font-size:13px; color:rgba(255,255,255,0.62);}
 
     @media (max-width:640px){
-      .envelope-wrap{width:100%;height:240px}
-      .envelope{width:320px;height:200px}
+      .envelope-wrap{width:100%; height:240px}
+      .envelope{width:320px; height:200px}
+      .flap{top:-100px; height:160px}
       .video-panel{height:220px}
       .title{font-size:18px}
       .subtitle{font-size:22px}
+      .message .msg-line1{font-size:20px}
     }
   </style>
 </head>
 <body>
-  <div class="snow" aria-hidden></div>
+  <div class="glitter" aria-hidden>
+    <!-- Create 50 light specks -->
+    <script>
+      for(let i=0;i<50;i++){
+        let span=document.createElement('span');
+        span.style.top=Math.random()*100+'%';
+        span.style.left=Math.random()*100+'%';
+        span.style.animationDelay=(Math.random()*3)+'s';
+        span.style.width=(Math.random()*2+1)+'px';
+        span.style.height=(Math.random()*2+1)+'px';
+        document.body.appendChild(span);
+      }
+    </script>
+  </div>
+
   <div class="stage">
     <div class="headline">
       <div class="title">You're invited</div>
@@ -99,18 +95,15 @@
       <button id="envelopeBtn" class="envelope" aria-label="Open Save the Date envelope" title="Open Save the Date" style="border:none;background:transparent;padding:0;cursor:pointer">
         <div class="flap"></div>
         <div class="seal">❤</div>
-        <div class="message" aria-hidden>
-          <div class="msg-inner">
-            <div class="msg-line1">It's time to Save the Date</div>
-            <div class="msg-line2">— Open Me —</div>
-          </div>
+        <div class="message">
+          <div class="msg-line1">It's time to Save the Date</div>
+          <div class="msg-line2">— Open Me —</div>
         </div>
       </button>
 
       <div id="videoPanel" class="video-panel" role="dialog" aria-label="Save the Date video">
         <div class="video-wrap" id="videoWrap">
           <div id="iframeHolder" style="width:100%;height:100%;"></div>
-
           <div class="play-pulse" id="playPulse" aria-hidden>
             <div class="circle"></div>
             <div class="play-icon">▶</div>
@@ -131,7 +124,6 @@
       const videoPanel = document.getElementById('videoPanel');
       const iframeHolder = document.getElementById('iframeHolder');
       const playPulse = document.getElementById('playPulse');
-
       let opened = false;
 
       function createYouTubeIframe(){
@@ -145,7 +137,7 @@
         iframe.setAttribute('frameborder','0');
         iframe.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;');
         iframe.setAttribute('allowfullscreen','');
-        iframe.style.width = '100%'; iframe.style.height = '100%';
+        iframe.style.width='100%'; iframe.style.height='100%';
         iframeHolder.appendChild(iframe);
       }
 
@@ -160,24 +152,12 @@
         }, 520);
       }
 
-      envelopeBtn.addEventListener('click', function(e){
-        e.preventDefault();
-        openEnvelope();
-      });
-
+      envelopeBtn.addEventListener('click', function(e){ e.preventDefault(); openEnvelope(); });
       playPulse.addEventListener('click', function(){
         const iframe = iframeHolder.querySelector('iframe');
-        if(iframe && iframe.contentWindow){
-          iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}','*');
-        } else {
-          createYouTubeIframe();
-        }
+        if(iframe && iframe.contentWindow){ iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}','*'); } else { createYouTubeIframe(); }
       });
-
-      envelopeBtn.addEventListener('keydown', function(ev){
-        if(ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openEnvelope(); }
-      });
-
+      envelopeBtn.addEventListener('keydown', function(ev){ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); openEnvelope(); } });
     })();
   </script>
 </body>
